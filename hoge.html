@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HLS Demo</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/1.8.2/plyr.css">
+  </head>
+  <body>
+    <audio preload="true" id="player" controls crossorigin>
+    <script src="https://cdn.plyr.io/1.8.2/plyr.js"></script>
+    <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.js"></script>
+  </body>
+</html>
+<script>
+  var audio = document.querySelector('#player');
+  var audioSrc = 'https://stream.ram.radio/audio/ram.stream_aac/playlist.m3u8'
+  alert(`supported: ${Hls.isSupported()}`)
+  alert(`canPlayType: ${audio.canPlayType('application/vnd.apple.mpegurl')}`)
+
+  if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(audioSrc);
+    hls.attachMedia(audio); 
+  } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+    audio.src = audioSrc;
+  }
+  
+  plyr.setup(audio);
+</script>
